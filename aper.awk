@@ -3,7 +3,7 @@ BEGIN { FS=","; IGNORECASE=1;}
   $1 ~				   \
   /\w.*@\w/			&& \
   !/^#/				&& \
-  !/@.*yale\.edu/ 		&& \
+  !/@.*\<yale\.edu/ 		&& \
   !/^whitelist@example\.com/	   \
                                    \
   { print \
