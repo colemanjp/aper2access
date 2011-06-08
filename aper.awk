@@ -4,7 +4,7 @@ BEGIN { FS=","; IGNORECASE=1;}
   /\w.*@\w/			&& \
   !/^#/				&& \
   !/@.*yale\.edu/ 		&& \
-  !/whitelist@example\.com/	   \
+  !/^whitelist@example\.com/	   \
                                    \
   { print \
     "From:"$1," ERROR: Sender blocked for phishing APER",\

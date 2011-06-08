@@ -10,6 +10,7 @@ zulfiqar.ali8@ptcl.net.pk,E,20110214
 zy02057@nottingham.edu.cn,E,20090819
 zy37rt@gmail.com,A,20090303
 zzhang@uncc.edu,E,20100817
+xwhitelist@example.com,B,20110322
 john.coleman@duckyale.edu,E,20100817
 # Comments should be filtered
 # Blank lines should be filtered
@@ -25,3 +26,5 @@ example.edu,E,20100817
 john@,E,20100817
 # Should ignore case and be filtered
 john.coleman@YALE.Edu,A,20110523
+# Whitelisted address should be filtered
+whitelist@example.com,B,20110322
