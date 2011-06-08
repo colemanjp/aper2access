@@ -1,0 +1,9 @@
+Turns https://sourceforge.net/projects/aper/ into sendmail access db
+- Filters out blank lines
+- Filters out comment lines
+- Filters out lines without an @
+- Filters out lines with our domain on the RHS
+- Filters out arbitrary whitelisted addresses
+
+awk -f aper.awk phishing_reply_addresses > access.aper
+

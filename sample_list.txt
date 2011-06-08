@@ -1,0 +1,27 @@
+# These should be not be filtered
+LhsHasYale.edu@ksu.edu.sa,E,20101221
+zsangkula@ksu.edu.sa,E,20101221
+zsolt.diveki@cea.fr,E,20110304
+zsolt_depapp@urmc.rochester.edu,E,20101122
+zspence@republicservices.com,E,20100715
+zteng@utk.edu,E,20100701
+zui.neofa@student.qut.edu.au,E,20091125
+zulfiqar.ali8@ptcl.net.pk,E,20110214
+zy02057@nottingham.edu.cn,E,20090819
+zy37rt@gmail.com,A,20090303
+zzhang@uncc.edu,E,20100817
+john.coleman@duckyale.edu,E,20100817
+# Comments should be filtered
+# Blank lines should be filtered
+
+# @yale.edu should be filtered
+john.coleman@yale.edu,E,20100817
+john.coleman@pantheon.yale.edu,E,20100817
+# No @ should be filtered
+example.edu,E,20100817
+# No LHS should be filtered
+@example.edu,E,20100817
+# No RHS should be filtered
+john@,E,20100817
+# Should ignore case and be filtered
+john.coleman@YALE.Edu,A,20110523
