@@ -70,7 +70,7 @@ while read line ;do
 # Must not be a comment
 # Must not be @something.yale.edu
 a=$(echo ${line} |\
-  awk -F, '$1 ~ \
+  /usr/bin/awk -F, '$1 ~ \
   /\w.*@\w/ && \
   !/^#/ && \
   !/@.*\.yale\.edu/ \
@@ -80,7 +80,7 @@ a=$(echo ${line} |\
 if [[ ${a} =~ "@yale.edu"  ]]; then 
 
 	# search the directory and fail open if the search fails
-	b=$( ldapsearch -LLL -x -h directory.yale.edu -b \
+	b=$( /usr/bin/ldapsearch -LLL -x -h directory.yale.edu -b \
             o=yale.edu mail="$a" ) || continue
 
         # if there's a mail entry that matches, skip
