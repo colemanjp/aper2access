@@ -9,3 +9,7 @@ Turns https://sourceforge.net/projects/aper/ into sendmail access db
 
 awk -f aper.awk phishing_reply_addresses > access.aper
 
+aper.sh does all of the above but also searches directory.yale.edu when it sees @yale.edu
+aper.sh removes the whitelist feature
+
+make -f test.mk can be used to compare old and new

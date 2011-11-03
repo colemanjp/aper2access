@@ -1,0 +1,63 @@
+# Standard shell library functions
+#$Id: dcsunix_shell_lib_1,v 1.1 2006/08/22 18:53:53 root Exp $
+# This file is under cfengine control
+
+# Name: error
+# Input: Error text
+# Action: Echoes error message 
+#         Calls usage_and_exit() with value of 1
+# Example: error "This is my error message"
+error( )
+{
+    echo "$@" 1>&2
+    usage_and_exit 1
+}
+
+# Name: mail_error
+# Input: accepts string error text
+# Action: echoes error message
+#         mails error to root
+#         calls usage_and_exit() with a value of 1
+# Example: mail_error "This is my error message"
+mail_error( )
+{
+    echo "$@" 1>&2
+    /usr/sbin/sendmail -oi -t <<END
+To:<root>
+Subject: $PROGRAM error
+
+"$@"
+END
+    usage_and_exit 1
+}
+
+# Name: usage_and exit
+# Input: None
+# Action: Calls usage() (script specfic) and exits
+# Example: usage_and_exit
+usage_and_exit( )
+{
+    usage
+    exit $1
+}
+
+# Name: version
+# Input: None
+# Action: Prints program name and version
+# Example: version
+version( )
+{
+    echo "$PROGRAM version $VERSION"
+}
+
+# Name: warning
+# Input: Error text
+# Action: Echoes error message
+#         Increments exitcode counter
+# Example: warning "This is my warning message"
+warning( )
+{
+    echo "$@" 1>&2
+    EXITCODE=`expr $EXITCODE + 1`
+}
+
