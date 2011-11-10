@@ -23,7 +23,7 @@ PATH=/bin:/usr/bin
 export PATH
 
 # Include standard reusable functions for all scripts
-source dcsunix_shell_lib_1 || exit 1
+source /usr/local/etc/dcsunix_shell_lib_1 || exit 1
 # END PREAMBLE
 
 # Usage function is script specific, but you MUST have one for the library
@@ -76,15 +76,18 @@ a=$(echo ${line} |\
   !/@.*\.yale\.edu/ \
   {print tolower($1)}')
 
-# match @yale.edu and skip if found in directory
+# match @yale.edu and search ldap and skip if found in directory
 if [[ ${a} =~ "@yale.edu"  ]]; then 
 
+	# strip + off LHS before search
+	b=${a/+*@/@}
+
 	# search the directory and fail open if the search fails
-	b=$( /usr/bin/ldapsearch -LLL -x -h directory.yale.edu -b \
-            o=yale.edu mail="$a" ) || continue
+	c=$( /usr/bin/ldapsearch -LLL -x -h directory.yale.edu -b \
+            o=yale.edu mail="${b}" ) || continue
 
         # if there's a mail entry that matches, skip
-	if [[ ${b} =~ "mail: ${a}" ]]; then
+	if [[ ${c} =~ "mail: ${b}" ]]; then
                 continue	
 	fi
 

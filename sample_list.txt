@@ -17,11 +17,13 @@ john.coleman@duckyale.edu,E,20100817
 
 # @yale.edu should be filtered
 john.coleman@yale.edu,E,20100817
+john.coleman+foobar@yale.edu,E,20100817
 john.coleman@pantheon.yale.edu,E,20100817
 john.coleman@foobar.its.yale.edu,E,20100817
 
 # @yale.edu not in directory should not be filtered in new version
 spammer@yale.edu,E,20100817
+spammer+with_plus@yale.edu,E,20100817
 # No @ should be filtered
 example.edu,E,20100817
 # No LHS should be filtered
