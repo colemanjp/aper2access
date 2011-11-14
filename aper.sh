@@ -1,6 +1,8 @@
 #!/bin/bash -
-
 # - on #! line means no more option processing
+
+# ignore case in tests
+shopt -s nocasematch
 
 # START PREAMBLE
 # Preamble IFS, unsets, utility functions etc. adapted from 'Classic Shell Scripting'
@@ -65,38 +67,55 @@ test $# = 1 || usage_and_exit 1
 
 while read line ;do
 
-# Set $a to just the address and filter
-# Must be LHS@RHS
-# Must not be a comment
-# Must not be @something.yale.edu
-a=$(echo ${line} |\
-  /usr/bin/awk -F, '$1 ~ \
-  /\w.*@\w/ && \
-  !/^#/ && \
-  !/@.*\.yale\.edu/ \
-  {print tolower($1)}')
+# Make sure the line is comma delimited
+if [[ ${line} =~ , ]]
+then
+	:
+else
+	continue
+fi
 
-# match @yale.edu and search ldap and skip if found in directory
-if [[ ${a} =~ "@yale.edu"  ]]; then 
+# Chomp first comma to the end of the line
+line=${line%%,*}
 
-	# strip + off LHS before search
-	b=${a/+*@/@}
+# Skip commented lines
+if [[ $line =~ ^# ]]
+then
+	continue
+fi
 
-	# search the directory and fail open if the search fails
-	c=$( /usr/bin/ldapsearch -LLL -x -h directory.yale.edu -b \
-            o=yale.edu mail="${b}" ) || continue
+# Test for something@something. dot and _ appear in LHS
+if [[ $line =~ [[:alnum:]\._]@[[:alnum:]] ]]
+then
+    # Skip @something.yale.edu since we cant verify it
+    if [[ ${line} =~ @*\.yale\.edu ]]; then
+        continue
+    fi
+    # match @yale.edu and search ldap and skip if found in directory
+    if [[ $line =~ @yale\.edu  ]]; then 
+    
+    	# strip + off LHS before search
+    	b=${line/+*@/@}
+    
+    	# search the directory and fail open if the search fails
+    	c=$( /usr/bin/ldapsearch -LLL -x -h directory.yale.edu -b \
+                o=yale.edu mail="${b}" ) || continue
+    
+            # if there's a mail entry that matches, skip
+    	if [[ ${c} =~ "mail: ${b}" ]]; then
+                    continue	
+    	fi
+    
+    fi
 
-        # if there's a mail entry that matches, skip
-	if [[ ${c} =~ "mail: ${b}" ]]; then
-                continue	
-	fi
-
+else
+	continue
 fi
 
 # print what remains
-if [[ -n ${a} ]]; then
-	echo "From:${a}  ERROR: Sender blocked for phishing APER"
-        echo "To:${a}  ERROR: Recipient blocked for phishing APER" 
+if [[ ${line} ]]; then
+	echo "From:${line}  ERROR: Sender blocked for phishing APER"
+        echo "To:${line}  ERROR: Recipient blocked for phishing APER" 
 fi
 
 done < ${1}

@@ -34,3 +34,8 @@ john@,E,20100817
 john.coleman@YALE.Edu,A,20110523
 # Whitelisted address should be filtered
 whitelist@example.com,B,20110322
+a@b,B,20110322
+___a@b,B,20110322
+aaa___...@b,B,20110322
+
+
