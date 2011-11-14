@@ -68,8 +68,7 @@ test $# = 1 || usage_and_exit 1
 while read line ;do
 
 # Make sure the line is comma delimited
-if [[ ${line} =~ , ]]
-then
+if [[ ${line} =~ , ]]; then
 	:
 else
 	continue
@@ -79,20 +78,18 @@ fi
 line=${line%%,*}
 
 # Skip commented lines
-if [[ $line =~ ^# ]]
-then
+if [[ ${line} =~ ^# ]]; then
 	continue
 fi
 
 # Test for something@something. dot and _ appear in LHS
-if [[ $line =~ [[:alnum:]\._]@[[:alnum:]] ]]
-then
+if [[ ${line} =~ [[:alnum:]\._]@[[:alnum:]] ]]; then
     # Skip @something.yale.edu since we cant verify it
     if [[ ${line} =~ @*\.yale\.edu ]]; then
         continue
     fi
     # match @yale.edu and search ldap and skip if found in directory
-    if [[ $line =~ @yale\.edu  ]]; then 
+    if [[ ${line} =~ @yale\.edu  ]]; then 
     
     	# strip + off LHS before search
     	b=${line/+*@/@}
@@ -105,9 +102,7 @@ then
     	if [[ ${c} =~ "mail: ${b}" ]]; then
                     continue	
     	fi
-    
     fi
-
 else
 	continue
 fi
