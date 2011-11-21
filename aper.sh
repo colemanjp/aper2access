@@ -85,7 +85,7 @@ fi
 # Test for something@something. dot and _ appear in LHS
 if [[ ${line} =~ [[:alnum:]\._]@[[:alnum:]] ]]; then
     # Skip @something.yale.edu since we cant verify it
-    if [[ ${line} =~ @*\.yale\.edu ]]; then
+    if [[ ${line} =~ "@*\.yale\.edu" ]]; then
         continue
     fi
     # match @yale.edu and search ldap and skip if found in directory
