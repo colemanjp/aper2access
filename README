@@ -4,12 +4,7 @@ Turns https://sourceforge.net/projects/aper/ into sendmail access db
 - Filters out lines without an @
 - Filters out lines without an RHS
 - Filters out lines without an LHS
-- Filters out lines with our domain on the RHS
-- Filters out arbitrary whitelisted addresses
+- Filters out lines with something.ourdomain on the RHS
+- Filters out lines with ourdomain on the RHS if they are in our directory
 
-awk -f aper.awk phishing_reply_addresses > access.aper
-
-aper.sh does all of the above but also searches directory.yale.edu when it sees @yale.edu
-aper.sh removes the whitelist feature
-
-make -f test.mk can be used to compare old and new
+make -f test.mk can be used to exercise sample data and an (old) copy of phishing_reply_addresses
