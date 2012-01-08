@@ -4,6 +4,12 @@
 # ignore case in tests
 shopt -s nocasematch
 
+# accomdate bash4 havoc
+# From man page: compat31
+# If set, bash changes its behavior to that of version 3.1 with 
+# respect to quoted arguments to the [[ conditional command's =~ operator.
+shopt -s compat31
+
 # START PREAMBLE
 # Preamble IFS, unsets, utility functions etc. adapted from 'Classic Shell Scripting'
 #  available at http://safari.oreilly.com
