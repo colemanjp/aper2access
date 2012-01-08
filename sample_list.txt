@@ -1,4 +1,6 @@
 # These should be not be filtered
+___a@b.com,B,20110322
+aaa___...@b.org,B,20110322
 LhsHasYale.edu@ksu.edu.sa,E,20101221
 zsangkula@ksu.edu.sa,E,20101221
 zsolt.diveki@cea.fr,E,20110304
@@ -15,27 +17,24 @@ john.coleman@duckyale.edu,E,20100817
 # Comments should be filtered
 # Blank lines should be filtered
 
-# @yale.edu should be filtered
+# @yale.edu in the directory should be filtered
 john.coleman@yale.edu,E,20100817
 john.coleman+foobar@yale.edu,E,20100817
+# Should ignore case and be filtered if in directory
+john.coleman@YALE.Edu,A,20110523
+
+# @something.yale.edu should be filtered since we can't verify in directory
 john.coleman@pantheon.yale.edu,E,20100817
 john.coleman@foobar.its.yale.edu,E,20100817
 
 # @yale.edu not in directory should not be filtered in new version
 spammer@yale.edu,E,20100817
 spammer+with_plus@yale.edu,E,20100817
+
+
 # No @ should be filtered
 example.edu,E,20100817
 # No LHS should be filtered
 @example.edu,E,20100817
 # No RHS should be filtered
 john@,E,20100817
-# Should ignore case and be filtered
-john.coleman@YALE.Edu,A,20110523
-# Whitelisted address should be filtered
-whitelist@example.com,B,20110322
-a@b,B,20110322
-___a@b,B,20110322
-aaa___...@b,B,20110322
-
-
